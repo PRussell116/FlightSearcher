@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FlightSearcher</string>
+    <string name="airportTitle">Airport title</string>
+</resources>
