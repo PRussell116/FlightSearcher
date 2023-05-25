@@ -11,8 +11,8 @@ interface AirportDAO{
 
     @Query("SELECT * FROM Airport WHERE name " +
             "LIKE :searchTerm " +
-            "OR iata_code LIKE :searchTerm " +
-            "ORDER BY name DESC")
+            "OR iata_code LIKE  :searchTerm " +
+            "ORDER BY passengers DESC")
     fun getSearchTerm(searchTerm: String):Flow<List<FlightEntitiy>>
 
 

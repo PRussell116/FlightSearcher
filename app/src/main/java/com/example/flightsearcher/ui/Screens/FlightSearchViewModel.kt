@@ -37,7 +37,7 @@ class FlightSearchViewModel(private val flightDao: AirportDAO):ViewModel(){
                 initialValue = AirportUiState(listOf(),"")
             )
         }
-        uiState = flightDao.getSearchTerm(term).map{
+        uiState = flightDao.getSearchTerm("%${term}%").map{
             AirportUiState(it,"")
         }.stateIn(
             scope = viewModelScope,
