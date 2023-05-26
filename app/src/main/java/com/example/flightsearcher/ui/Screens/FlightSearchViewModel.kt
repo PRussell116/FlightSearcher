@@ -36,14 +36,15 @@ class FlightSearchViewModel(private val flightDao: AirportDAO):ViewModel(){
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
                 initialValue = AirportUiState(listOf(),"")
             )
+        }else{
+            uiState = flightDao.getSearchTerm("%${term}%").map{
+                AirportUiState(it,"")
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+                initialValue = AirportUiState(listOf(),"")
+            )
         }
-        uiState = flightDao.getSearchTerm("%${term}%").map{
-            AirportUiState(it,"")
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-            initialValue = AirportUiState(listOf(),"")
-        )
     }
 
 
