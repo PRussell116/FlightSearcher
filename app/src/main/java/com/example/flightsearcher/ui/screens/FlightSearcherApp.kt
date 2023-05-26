@@ -98,9 +98,24 @@ fun FlightSearcherApp(viewModel: FlightSearchViewModel = viewModel(factory = Fli
 
         AirportScreen(flights = flightUiState.flightList)
 
+
+        //FavoriteBox(viewModel.getFaves())
+
     }
 
 }
+
+//@Composable
+//fun FavoriteBox(faveList: List<FlightEntitiy>){
+//    LazyColumn(modifier = Modifier, contentPadding = PaddingValues(vertical = 2.dp)){
+//        items(
+//            items = faveList, key = {flight -> flight.id}
+//        ){
+//            flight ->
+//            FavouriteCard(depart = , departCode = , arrive = , arriveCode = , checked = )
+//        }
+//    }
+//}
 @Composable
 fun AirportScreen(flights: List<FlightEntitiy>,modifier: Modifier = Modifier){
 
