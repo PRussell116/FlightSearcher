@@ -1,4 +1,4 @@
-package com.example.flightsearcher.ui.Screens
+package com.example.flightsearcher.ui.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import java.lang.Thread.State
 
 class FlightSearchViewModel(private val flightDao: AirportDAO):ViewModel(){
 

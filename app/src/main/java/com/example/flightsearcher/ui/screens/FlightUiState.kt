@@ -1,4 +1,4 @@
-package com.example.flightsearcher.ui.Screens
+package com.example.flightsearcher.ui.screens
 
 import com.example.flightsearcher.data.FlightEntitiy
 

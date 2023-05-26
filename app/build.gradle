@@ -74,6 +74,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "androidx.navigation:navigation-compose:$nav_version"
+    implementation 'androidx.core:core-ktx:+'
     testImplementation 'org.testng:testng:6.9.6'
 
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
