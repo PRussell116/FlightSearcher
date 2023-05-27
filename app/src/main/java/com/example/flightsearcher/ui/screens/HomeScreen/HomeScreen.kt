@@ -1,4 +1,4 @@
-package com.example.flightsearcher.ui.screens
+package com.example.flightsearcher.ui.screens.HomeScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,9 +38,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.flightsearcher.data.FlightEntitiy
+import com.example.flightsearcher.ui.screens.AppViewModelProvider
 
 @Composable
-fun FlightSearcherApp(viewModel: FlightSearchViewModel = viewModel(factory = FlightSearchViewModel.factory)){
+fun HomeScreen(viewModel: FlightSearchViewModel = viewModel(factory = AppViewModelProvider.Factory)){
 
     val flightUiState by viewModel.uiState.collectAsState()
 
@@ -95,27 +96,14 @@ fun FlightSearcherApp(viewModel: FlightSearchViewModel = viewModel(factory = Fli
 
       }
 
-
         AirportScreen(flights = flightUiState.flightList)
 
 
-        //FavoriteBox(viewModel.getFaves())
 
     }
 
 }
 
-//@Composable
-//fun FavoriteBox(faveList: List<FlightEntitiy>){
-//    LazyColumn(modifier = Modifier, contentPadding = PaddingValues(vertical = 2.dp)){
-//        items(
-//            items = faveList, key = {flight -> flight.id}
-//        ){
-//            flight ->
-//            FavouriteCard(depart = , departCode = , arrive = , arriveCode = , checked = )
-//        }
-//    }
-//}
 @Composable
 fun AirportScreen(flights: List<FlightEntitiy>,modifier: Modifier = Modifier){
 
@@ -162,10 +150,10 @@ fun FlightCard(code : String, airportName: String){
 @Preview
 @Composable
 fun FlightScreenPreview(){
-    val flight1 = FlightEntitiy(1,"London gatwick","LGA",5)
-    val flight2 = FlightEntitiy(1,"London Heathrow","HTR",8)
+    FlightEntitiy(1,"London gatwick","LGA",5)
+    FlightEntitiy(1,"London Heathrow","HTR",8)
 
-    FlightSearcherApp()
+    HomeScreen()
 }
 @Preview
 @Composable
@@ -173,7 +161,6 @@ fun FlightCardPreview(){
     FlightCard(code = "VIE", airportName = "Vienna International Airport")
 }
 
-//TODO add search functionality
 
 //TODO add star functionality
 

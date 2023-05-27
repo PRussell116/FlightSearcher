@@ -1,6 +1,9 @@
 package com.example.flightsearcher.data
 
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
@@ -15,9 +18,35 @@ interface AirportDAO{
             "ORDER BY passengers DESC")
     fun getSearchTerm(searchTerm: String):Flow<List<FlightEntitiy>>
 
+    @Query("SELECT * FROM Airport WHERE iata_code LIKE :codeToSearch")
+    fun getByIATA(codeToSearch: String):Flow<List<FlightEntitiy>>
 
-    // fav
-//
-//    @Query("SELECT * FROM favorite")
-//    fun getAllFaves(): Flow<List<FlightEntitiy>>
+
+    @Query("SELECT * from favorite ORDER BY departure_code ASC")
+    fun getAllFaves():Flow<List<FaveEntity>>
+
+
+    @Query("DELETE FROM favorite WHERE id = :idToDelete")
+    fun removeFave(idToDelete: Int){
+
+    }
+
+    @Query("DELETE FROM favorite WHERE destination_code = :arrivalCode AND departure_code = :departCode")
+    fun removeFave(arrivalCode: String,departCode: String){
+
+    }
+
+//    @Query("INSERT INTO favorite VALUES (:arrivalCode,:departCode)")
+//    fun addFave(arrivalCode:String,departCode:String)
+
+    @Query("SELECT * FROM favorite WHERE departure_code = :depCode AND destination_code = :arrivalCode")
+    fun isAFave(depCode:String,arrivalCode: String): Flow<FaveEntity>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(faveEntity: FaveEntity)
+
+    @Delete
+    suspend fun delete(faveEntity: FaveEntity)
+
+
 }
