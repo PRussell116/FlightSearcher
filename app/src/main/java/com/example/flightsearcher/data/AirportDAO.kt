@@ -26,6 +26,8 @@ interface AirportDAO{
     fun getAllFaves():Flow<List<FaveEntity>>
 
 
+
+
     @Query("DELETE FROM favorite WHERE id = :idToDelete")
     fun removeFave(idToDelete: Int){
 
@@ -47,6 +49,9 @@ interface AirportDAO{
 
     @Delete
     suspend fun delete(faveEntity: FaveEntity)
+
+    @Query("SELECT * from airport WHERE NOT id = :airportId")
+    fun getWherenotLikeName(airportId : Int): Flow<List<FlightEntitiy>>
 
 
 }

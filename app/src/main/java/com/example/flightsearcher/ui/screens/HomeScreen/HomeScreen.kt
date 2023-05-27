@@ -1,6 +1,8 @@
 package com.example.flightsearcher.ui.screens.HomeScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,7 +43,10 @@ import com.example.flightsearcher.data.FlightEntitiy
 import com.example.flightsearcher.ui.screens.AppViewModelProvider
 
 @Composable
-fun HomeScreen(viewModel: FlightSearchViewModel = viewModel(factory = AppViewModelProvider.Factory)){
+fun HomeScreen(
+    navigateToAirport: () ->Unit,
+
+    viewModel: FlightSearchViewModel = viewModel(factory = AppViewModelProvider.Factory)){
 
     val flightUiState by viewModel.uiState.collectAsState()
 
@@ -96,7 +101,7 @@ fun HomeScreen(viewModel: FlightSearchViewModel = viewModel(factory = AppViewMod
 
       }
 
-        AirportScreen(flights = flightUiState.flightList)
+        AirportScreen(flights = flightUiState.flightList, modifier = Modifier,navigateToAirport)
 
 
 
@@ -105,7 +110,7 @@ fun HomeScreen(viewModel: FlightSearchViewModel = viewModel(factory = AppViewMod
 }
 
 @Composable
-fun AirportScreen(flights: List<FlightEntitiy>,modifier: Modifier = Modifier){
+fun AirportScreen(flights: List<FlightEntitiy>,modifier: Modifier = Modifier,navigateToAirport: () -> Unit){
 
     LazyColumn(modifier = modifier, contentPadding = PaddingValues(vertical = 2.dp)){
         items(
@@ -114,21 +119,26 @@ fun AirportScreen(flights: List<FlightEntitiy>,modifier: Modifier = Modifier){
                 flight.id
             }
         ){flight ->
-            FlightCard(code = flight.iataCode, airportName = flight.name)
+            FlightCard(code = flight.iataCode, airportName = flight.name, navigateToAirport = navigateToAirport)
         }
     }
 
 }
 
 @Composable
-fun FlightCard(code : String, airportName: String){
+fun FlightCard(code : String, airportName: String,navigateToAirport: () -> Unit){
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
+
         modifier = Modifier
             .padding(top = 5.dp)
             .height(50.dp)
             .fillMaxWidth()
+            .clickable(
+                onClick = navigateToAirport
+            )
+
 
     ) {
         Row(
@@ -146,21 +156,6 @@ fun FlightCard(code : String, airportName: String){
         
     }
 }
-
-@Preview
-@Composable
-fun FlightScreenPreview(){
-    FlightEntitiy(1,"London gatwick","LGA",5)
-    FlightEntitiy(1,"London Heathrow","HTR",8)
-
-    HomeScreen()
-}
-@Preview
-@Composable
-fun FlightCardPreview(){
-    FlightCard(code = "VIE", airportName = "Vienna International Airport")
-}
-
 
 //TODO add star functionality
 
